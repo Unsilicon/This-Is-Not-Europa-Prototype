@@ -41,8 +41,11 @@ TagManager:
   - name: Default
     uniqueID: 0
     locked: 0
-  - name: Mineral
+  - name: Rock
     uniqueID: 2041179273
+    locked: 0
+  - name: Ore
+    uniqueID: 2772826727
     locked: 0
   m_RenderingLayers:
   - Default

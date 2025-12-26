@@ -12,21 +12,28 @@ public class MapGenerator : MonoBehaviour
 
     public Transform player;
 
-    public Mineral limestone;
+    public Rock limestone;
 
     public float limestoneProbability;
 
-    private Mineral[,] map;
+    public Ore ironOre;
+
+    public float ironOreScale;
+
+    public float ironOreProbability;
+
+    private Rock[,] map;
 
     private void Awake()
     {
-        map = new Mineral[mapWidth, mapHeight];
+        map = new Rock[mapWidth, mapHeight];
     }
 
     private void Start()
     {
         InitSeed();
         GenerateBase();
+        GenerateOre(ironOre);
         InstantiateMap();
         InitPlayerSpawnPoint();
     }
@@ -45,8 +52,8 @@ public class MapGenerator : MonoBehaviour
     // 生成基础地形的结构
     private void GenerateBase()
     {
-        float xOffset = Random.Range(0, 1000);
-        float yOffset = Random.Range(0, 1000);
+        float xOffset = Random.Range(0, 1000f);
+        float yOffset = Random.Range(0, 1000f);
         for (int x = 0; x < mapWidth; x++)
         {
             for (int y = 0; y < mapHeight; y++)
@@ -54,7 +61,27 @@ public class MapGenerator : MonoBehaviour
                 float noise = Mathf.PerlinNoise(x / mapScale + xOffset, y / mapScale + yOffset);
                 if (noise <= limestoneProbability)
                 {
-                    map[x, y] = limestone;
+                    Rock runtimeRock = limestone.Clone();
+                    map[x, y] = runtimeRock;
+                }
+            }
+        }
+    }
+
+    // 在地形中生成矿脉
+    private void GenerateOre(Ore ore)
+    {
+        float xOffset = Random.Range(0, 1000f);
+        float yOffset = Random.Range(0, 1000f);
+        for (int x = 0; x < mapWidth; x++)
+        {
+            for (int y = 0; y < mapHeight; y++)
+            {
+                float noise = Mathf.PerlinNoise(x / ironOreScale + xOffset, y / ironOreScale + yOffset);
+                if (map[x, y] && noise <= ironOreProbability)
+                {
+                    Ore runtimeOre = ore.Clone();
+                    map[x, y].ore = runtimeOre;
                 }
             }
         }
@@ -69,7 +96,11 @@ public class MapGenerator : MonoBehaviour
             {
                 if (map[x, y])
                 {
-                    Instantiate(map[x, y].prefab, new(x, y), Quaternion.identity, transform);
+                    Transform rock = Instantiate(map[x, y].prefab, new(x, y), Quaternion.identity, transform).transform;
+                    if (map[x, y].ore && map[x, y].ore.type != OreType.None)
+                    {
+                        Instantiate(map[x, y].ore.prefab, rock);
+                    }
                 }
             }
         }

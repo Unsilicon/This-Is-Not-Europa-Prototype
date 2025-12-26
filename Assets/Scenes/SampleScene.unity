@@ -325,6 +325,9 @@ MonoBehaviour:
   player: {fileID: 1770468913}
   limestone: {fileID: 11400000, guid: 35829a8f770630e42b53dade767e3019, type: 2}
   limestoneProbability: 0.4
+  ironOre: {fileID: 11400000, guid: f11c2121caf7b3c4c8e246bd35a620ef, type: 2}
+  ironOreScale: 5
+  ironOreProbability: 0.2
 --- !u!1 &1770468909
 GameObject:
   m_ObjectHideFlags: 0
