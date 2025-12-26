@@ -10,6 +10,8 @@ public class MapGenerator : MonoBehaviour
 
     public float mapScale;
 
+    public Transform player;
+
     public Mineral limestone;
 
     public float limestoneProbability;
@@ -26,6 +28,7 @@ public class MapGenerator : MonoBehaviour
         InitSeed();
         GenerateBase();
         InstantiateMap();
+        InitPlayerSpawnPoint();
     }
 
     // 初始化地图种子
@@ -67,6 +70,42 @@ public class MapGenerator : MonoBehaviour
                 if (map[x, y])
                 {
                     Instantiate(map[x, y].prefab, new(x, y), Quaternion.identity, transform);
+                }
+            }
+        }
+    }
+
+    // 初始化玩家的出生点
+    private void InitPlayerSpawnPoint()
+    {
+        for (int x = mapWidth / 4; x < mapWidth - mapWidth / 4; x++)
+        {
+            for (int y = mapHeight / 4; y < mapHeight - mapHeight / 4; y++)
+            {
+                // 为玩家选择一个周围空旷的出生点
+                bool isEmpty = true;
+                if (!map[x, y])
+                {
+                    for (int nearX = x - 1; nearX <= x + 1; nearX++)
+                    {
+                        for (int nearY = y - 1; nearY <= y + 1; nearY++)
+                        {
+                            if (map[nearX, nearY])
+                            {
+                                isEmpty = false;
+                                break;
+                            }
+                        }
+                        if (!isEmpty)
+                        {
+                            break;
+                        }
+                    }
+                    if (isEmpty)
+                    {
+                        player.position = new(x, y);
+                        return;
+                    }
                 }
             }
         }

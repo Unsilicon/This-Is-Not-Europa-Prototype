@@ -322,6 +322,7 @@ MonoBehaviour:
   mapWidth: 100
   mapHeight: 100
   mapScale: 10
+  player: {fileID: 1770468913}
   limestone: {fileID: 11400000, guid: 35829a8f770630e42b53dade767e3019, type: 2}
   limestoneProbability: 0.4
 --- !u!1 &1770468909
