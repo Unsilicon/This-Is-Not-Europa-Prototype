@@ -271,6 +271,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   player: {fileID: 1770468913}
   zOffset: -10
+  zoomSpeed: 2
+  minZoom: 2
+  maxZoom: 20
 --- !u!1 &1770468909
 GameObject:
   m_ObjectHideFlags: 0
