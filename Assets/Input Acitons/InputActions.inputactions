@@ -14,6 +14,15 @@
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": true
+                },
+                {
+                    "name": "LookAtMouse",
+                    "type": "Value",
+                    "id": "1ec411bc-6ca2-4ab1-9b23-da576571078d",
+                    "expectedControlType": "Vector2",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": true
                 }
             ],
             "bindings": [
@@ -82,6 +91,17 @@
                     "action": "Move",
                     "isComposite": false,
                     "isPartOfComposite": true
+                },
+                {
+                    "name": "",
+                    "id": "55c0fbbd-349e-4807-a07e-1dae99c9b71f",
+                    "path": "<Mouse>/position",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "LookAtMouse",
+                    "isComposite": false,
+                    "isPartOfComposite": false
                 }
             ]
         }
